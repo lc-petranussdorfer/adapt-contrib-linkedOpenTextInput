@@ -23,34 +23,13 @@ define(function(require) {
 
 
         postRender: function() {
-            // IMPORTANT! 
-            // Both of the following methods need to be called inside your view.
-
-            // Use this to set the model status to ready. 
-            // It should be used when telling Adapt that this view is completely loaded.
-            // This is sometimes used in conjunction with imageReady.
-            this.setReadyStatus();
-
-            // Use this to set the model status to complete.
-            // This can be used with inview or when the model is set to complete/the question has been answered.
-            this.setCompletionStatus();
-
-            QuestionView.prototype.postRender.apply(this);
+            
         },
         preRender: function() {
-            this.setupDefaultSettings();
-            this.resetQuestion({
-                resetAttempts: true,
-                initialisingScreen: true
-            });
-            // we do not need feedbackarrays
-            this.listenTo(this.model, 'change:_isEnabled', this.onEnabledChanged);
+            
         },
-        setupDefaultSettings: function() {
-            // initialize saved status
-            this.model.set("_isSaved", false);
-
-            QuestionView.prototype.setupDefaultSettings.apply(this);
+        setupLinkedModel: function() {
+            
         },
 
 
@@ -66,33 +45,16 @@ define(function(require) {
  
        
         onModelAnswerShown: function() {
-            // this.$(".modelAnswer").css
+            
         },
         onUserAnswerShown: function() {
-            //this.$(".userAnswer").css
+            
         },
-        /*getUserAnswer: function() {
-            var identifier = this.model.get('_id') + "-OpenTextInput-UserAnswer";
-            var userAnswer = '';
-            if (this.supports_html5_storage()) {
-                userAnswer = localStorage.getItem(identifier);
-            } else {
-                console.warn("No local storage available");
-            }
-            return userAnswer;
-        },*/
-        onComplete: function(parameters) {
-            this.model.set({
-                _isComplete: true,
-                _isEnabled: false,
-            });
-            this.$(".component-widget").addClass("disabled");
-            // this.showMarking();
-            this.showUserAnswer();
-            Adapt.trigger('questionView:complete', this);
+        getUserAnswer: function() {
+            
         },
+
         
-        markQuestion: function() {}
     });
 
     Adapt.register("linkedopentextinput", LinkedOpenTextInput);
