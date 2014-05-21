@@ -1,0 +1,21 @@
+{{! Maintainers - LearnChamp}}
+<div class="component-inner linkedOpenTextinput-inner">
+    {{#if title}}
+    <div class="component-title linkedOpenTextinput-title">
+        <h4 class="component-title-inner linkedOpenTextinput-title-inner">
+            {{{title}}}
+        </h4>
+    </div>
+    {{/if}}
+    {{#if body}}
+    <div class="component-body linkedOpenTextinput-body">
+        <div class="component-body-inner linkedOpenTextinput-body-inner">
+            {{{body}}}
+        </div>
+    </div>
+    {{/if}}
+    <div class="component-widget linkedOpenTextinput-widget">
+    <div class="userAnswer">Insert the user answer from the first component</div>
+    <div class="modelAnswer">{{{modelAnswer}}}</div>
+    </div>
+</div>

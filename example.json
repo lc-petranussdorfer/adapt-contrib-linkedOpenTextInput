@@ -1,0 +1,13 @@
+{
+    "_id": "c-9001",
+    "_parentId": "b-00",
+    "_type": "component",
+    "_component": "linkedopentextinput",
+    "_classes": "",
+    "_layout": "full",
+    "_linkedTo": "c-135",
+    "title": "Title of the problem",
+    "displayTitle":"Linked Open Textinput Component",
+    "body": "Description of the problem.",    
+    "modelAnswer": "Answer to compare to."
+}

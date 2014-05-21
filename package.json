@@ -1,0 +1,23 @@
+{
+  "name": "adapt-contrib-linkedOpenTextInput",
+  "version": "0.0.1",
+  "description": "The linked opentextinput component allows you to compare the answers",
+  "main": "",
+  "scripts": {
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lc-petranussdorfer/adapt-contrib-linkedOpenTextInput"
+  },
+  "author": "AdaptLearning",
+  "license": "GPL v3",
+  "bugs": {
+    "url": "https://github.com/adaptlearning/adapt-contrib-linkedOpenTextInput/issues"
+  },
+  "devDependencies": {
+    "karma": "~0.10",
+    "karma-mocha": "*",
+    "karma-expect": "*"
+  }
+}
