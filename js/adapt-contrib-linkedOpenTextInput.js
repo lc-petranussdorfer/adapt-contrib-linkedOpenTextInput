@@ -19,29 +19,8 @@ define(function(require) {
         events: {
             "click .linkedopentextinput-widget .button.model": "onModelAnswerClicked",
             "click .linkedopentextinput-widget .button.user": "onUserAnswerClicked",
-        },
+        }
 
-
-        postRender: function() {
-            
-        },
-        preRender: function() {
-            
-        },
-        setupLinkedModel: function() {
-            
-        },
- 
-       
-        onModelAnswerShown: function() {
-            
-        },
-        onUserAnswerShown: function() {
-            
-        },
-        getUserAnswer: function() {
-            
-        },
 
         
     });
