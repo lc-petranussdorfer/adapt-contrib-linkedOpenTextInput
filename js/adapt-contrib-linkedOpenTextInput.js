@@ -31,17 +31,6 @@ define(function(require) {
         setupLinkedModel: function() {
             
         },
-
-
-        forceFixedPositionFakeScroll: function() {
-            // function copied from textInput component
-            if (Modernizr.touch) {
-                _.defer(function() {
-                    window.scrollTo(document.body.scrollLeft, document.body.scrollTop);
-                });
-            }
-        },
-
  
        
         onModelAnswerShown: function() {
