@@ -7,7 +7,7 @@
     "Barbara Fellner <me@barbarafellner.at>",
     "Petra Nussdorfer <petra.nussdorfer@learnchamp.com"
   ],
-  "description": "The linked opentextinput component allows you to compare the answers",
+  "description": "A question component that allows the learner to input open text based upon a question stem.",
   "main": "/js/adapt-contrib-linkedOpenTextInput.js",
   "keywords": [
     "adapt-plugin",
