@@ -1,23 +1,13 @@
 {
-    "_id": "c-9002",
+    "_id": "c-9001",
     "_parentId": "b-650",
     "_type": "component",
     "_component": "linkedopentextinput",
     "_classes": "",
     "_layout": "full",
-    "title": "Title of the problem",
-    "displayTitle":" Linked Open Textinput Component",
-    "body": "Description of the problem.",
-    "placeholder": "Enter your answer here",
-    "_questionWeight": 10,
-    "allowedCharacters": 50,
-    "_buttons": {
-        "clear": "",
-        "save": "",
-        "submit": "",
-        "showCorrectAnswer": "",
-        "hideCorrectAnswer": ""
-    },   
-    "modelAnswer": "Answer to compare to.",
-    "savedMessage": "Your text has been saved"
+    "_linkedToId": "c-9000",
+    "title": "Linked Open Textinput Component",
+    "displayTitle":"Linked Open Textinput Component",
+    "body": "Description of the problem.",    
+    "modelAnswer": "Linked Answer to compare to."
 },

@@ -13,6 +13,7 @@
 define(function(require) {
     var QuestionView = require('coreViews/questionView');
     var Adapt = require('coreJS/adapt');
+     var OpenTextInput = require('components/adapt-contrib-openTextInput/js/adapt-contrib-openTextInput');
 
 
     var LinkedOpenTextInput = QuestionView.extend({
@@ -24,141 +25,48 @@ define(function(require) {
 
 
         postRender: function() {
-            // IMPORTANT! 
-            // Both of the following methods need to be called inside your view.
-
-            // Use this to set the model status to ready. 
-            // It should be used when telling Adapt that this view is completely loaded.
-            // This is sometimes used in conjunction with imageReady.
             this.setReadyStatus();
-
-            // Use this to set the model status to complete.
-            // This can be used with inview or when the model is set to complete/the question has been answered.
             this.setCompletionStatus();
+            this.listenToLinkedModel();
+
+
+ if(this.model.get('_linkedModel').get('_isSubmitted')) {
+                console.log("Submitted in postRender is true");
+            } 
 
             // Read the last saved answer and paste it into the textarea
             this.$(".linkedopentextinput-item-textbox").val(this.getUserAnswer());
+
+            this.$(".linkedopentextinput-useranswer").text(this.model.get('_linkedModel').get('_userAnswer'));
 
 
             QuestionView.prototype.postRender.apply(this);
         },
         preRender: function() {
-            this.setupDefaultSettings();
-            this.resetQuestion({
-                resetAttempts: true,
-                initialisingScreen: true
-            });
-            // we do not need feedbackarrays
-            this.listenTo(this.model, 'change:_isEnabled', this.onEnabledChanged);
-        },
-        setupDefaultSettings: function() {
-            // initialize saved status
-            this.model.set("_isSaved", false);
+            this.setupLinkedModel();
+           this.model.set('_isEnabled', this.model.get('_linkedModel').get('_isSubmitted'));
 
-            QuestionView.prototype.setupDefaultSettings.apply(this);
+    
         },
-        supports_html5_storage: function() {
-            // check for html5 local storage support
-            try {
-                return 'localStorage' in window && window['localStorage'] !== null;
-            } catch (e) {
-                return false;
-            }
+        setupLinkedModel: function() {
+            var linkedModel = Adapt.components.findWhere({_id: this.model.get('_linkedToId')});
+            this.model.set('_linkedModel', linkedModel);
         },
-        canSubmit: function() {
-            // function copied from textInput component
-            var canSubmit = true;
-            if ($(".linkedopentextinput-item-textbox").val() == "") {
-                canSubmit = false;
+       listenToLinkedModel: function() {
+        console.log("Bin in listenToLinkedModel");
+            this.listenTo(this.model.get('_linkedModel'), 'change:_isSubmitted', this.onLinkedSubmittedChanged);
+
+          console.log("Is submitted in listenToLinkeModel: " + this.model.get('_linkedModel').get('_isSubmitted'));
+
+        },
+         onLinkedSubmittedChanged: function(linkedModel) {
+            if(linkedModel.get('_isSubmitted')) {
+                        console.log("Is submitted in onLinkedSubmittedChanged: " + this.model.get('_linkedModel').get('_isSubmitted'));
+
             }
-            return canSubmit;
+
         },
        
-        storeUserAnswer: function() {
-            // store user answer from textarea to localstorage
-            var userAnswer = this.$(".linkedopentextinput-item-textbox").val();
-            // use unique identifier to avoid collisions with other components
-            var identifier = this.model.get('_id') + "-LinkedOpenTextInput-UserAnswer";
-
-            if (this.supports_html5_storage()) {
-                localStorage.setItem(identifier, userAnswer);
-                this.model.set("_isSaved", true);
-            } else {
-                console.warn("No local storage available");
-            }
-        },
-        onSaveClicked: function(event) {
-            event.preventDefault();
-
-            this.storeUserAnswer();
-
-            var pushObject = {
-                title: "",
-                body: this.model.get('savedMessage'),
-                _timeout:2000,
-                _callbackEvent: "pageLevelProgress:stayOnPage"
-            };
-            
-
-            Adapt.trigger('notify:push', pushObject);
-        },
-
-        onClearClicked: function(event) {
-            event.preventDefault();
-
-            var promptObject = {
-             title: "Clear Text",
-            body: "Do you really want to delete your written text?",
-            _prompts:[
-                {
-                    promptText: "Yes",
-                    _callbackEvent: "clickEvent:clearText",
-                },
-                {
-                    promptText: "No",
-                    _callbackEvent: "pageLevelProgress:stayOnPage"
-                }
-            ],
-            _showIcon: true
-        };
-
-
-            Adapt.on('clickEvent:clearText', function() {
-                // Error: Undefined is not a function
-                this.clearTextarea();
-            }, this);
-
-            Adapt.trigger('notify:prompt', promptObject);
-            
-        },
-
-        clearTextarea: function(event) {
-            this.$(".linkedopentextinput-item-textbox").val('');
-            this.storeUserAnswer();
-
-        },
-
-        onSubmitClicked: function(event) {
-            event.preventDefault();
-
-            if (!this.canSubmit()) return;
-
-            Adapt.tabHistory = $(event.currentTarget).parent('.inner');
-
-            this.model.set({
-                _isEnabled: false,
-                _isSubmitted: true,
-            });
-            this.$(".component-widget").addClass("submitted user");
-
-            var userAnswer = this.$(".linkedopentextinput-item-textbox").val();
-            this.model.set("_userAnswer", userAnswer);
-
-            this.storeUserAnswer();
-        },
-        onEnabledChanged: function() {
-            this.$('.linkedopentextinput-item-textbox').prop('disabled', !this.model.get('_isEnabled'));
-        },
         onModelAnswerShown: function() {
             this.$(".linkedopentextinput-item-textbox").val(this.model.get('modelAnswer'));
         },
@@ -166,24 +74,24 @@ define(function(require) {
             this.$(".linkedopentextinput-item-textbox").val(this.getUserAnswer());
         },
         getUserAnswer: function() {
-            var identifier = this.model.get('_id') + "-LinkedOpenTextInput-UserAnswer";
+           /* var identifier = this.model.get('_id') + "-LinkedOpenTextInput-UserAnswer";
             var userAnswer = '';
             if (this.supports_html5_storage()) {
                 userAnswer = localStorage.getItem(identifier);
             } else {
                 console.warn("No local storage available");
             }
-            return userAnswer;
+            return userAnswer;*/
         },
         onComplete: function(parameters) {
-            this.model.set({
+           /* this.model.set({
                 _isComplete: true,
                 _isEnabled: false,
             });
             this.$(".component-widget").addClass("disabled");
             // this.showMarking();
             this.showUserAnswer();
-            Adapt.trigger('questionView:complete', this);
+            Adapt.trigger('questionView:complete', this);*/
         },
         
         markQuestion: function() {}
