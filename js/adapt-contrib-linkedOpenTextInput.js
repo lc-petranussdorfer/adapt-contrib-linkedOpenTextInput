@@ -55,42 +55,18 @@ define(function(require) {
             console.log("setupLinkedModel: " + this.model.get('_linkedModel'));
         },
         listenToLinkedModel: function() {
-            this.listenTo(this.model.get('_linkedModel'), 'change:_isSubmitted', this.onLinkedSubmittedChanged);
             this.listenTo(this.model.get('_linkedModel'), 'change:_userAnswer', this.onLinkedUserAnswerChanged);
-
         },
-        onLinkedSubmittedChanged: function(linkedModel) {
-            if (linkedModel.get('_isSubmitted')) {
-
-                /* this.$(".linkedopentextinput-useranswer").text(this.model.get('_linkedModel').get('_userAnswer'));
-                 */
-
-                console.log("Is submitted in onLinkedSubmittedChanged: " + this.model.get('_linkedModel').get('_userAnswer'));
-
-            }
-
-        },
-
         onLinkedUserAnswerChanged: function(linkedModel) {
             this.$(".linkedopentextinput-useranswer").text(this.model.get('_linkedModel').get('_userAnswer'));
+            this.$(".linkedopentextinput-inner").addClass("display");
         },
 
         onModelAnswerShown: function() {
-            this.$(".linkedopentextinput-item-textbox").val(this.model.get('modelAnswer'));
+            //display model answer from json
         },
-        onUserAnswerShown: function() {
-            this.$(".linkedopentextinput-item-textbox").val(this.getUserAnswer());
-        },
-        getUserAnswer: function() {
-            /* var identifier = this.model.get('_id') + "-LinkedOpenTextInput-UserAnswer";
-            var userAnswer = '';
-            if (this.supports_html5_storage()) {
-                userAnswer = localStorage.getItem(identifier);
-            } else {
-                console.warn("No local storage available");
-            }
-            return userAnswer;*/
-        },
+
+
         onComplete: function(parameters) {
             /* this.model.set({
                 _isComplete: true,
