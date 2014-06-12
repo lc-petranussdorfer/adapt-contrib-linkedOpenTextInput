@@ -27,9 +27,10 @@
          padding: @button-padding;
          color: @button-text-color;
          background-color: @button-color;
-         display: none !important;
+         display: none;
          margin-top:8px;
      }
+
      .linkedopentextinput-widget {
          &.model {
              .linkedopentextinput-select-icon {
@@ -49,6 +50,7 @@
      }
  }
  .linked-answer-container {
+  display: block;
      width: 100%;
  }
  .linkedopentextinput-inner {
@@ -58,9 +60,27 @@
      }
  }
  .linkedopentextinput-useranswer, .linkedopentextinput-modelanswer {
-     border: 1px solid #333;
-     width: 40%;
-     padding: 20px 50px;
+         width: 48%;
+         min-height: 50px;
+         resize: none;
+         border-color: rgb(169, 169, 169);
+         -webkit-appearance: textarea;
+background-color: rgb(235, 235, 228);
+border: 1px solid;
+border-image-source: initial;
+border-image-slice: initial;
+border-image-width: initial;
+border-image-outset: initial;
+border-image-repeat: initial;
+-webkit-rtl-ordering: logical;
+-webkit-user-select: text;
+flex-direction: column;
+resize: auto;
+cursor: auto;
+padding: 5px;
+white-space: pre-wrap;
+word-wrap: break-word;
+float: left;
  }
  .no-touch {
      .button {
