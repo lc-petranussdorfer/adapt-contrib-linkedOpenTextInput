@@ -55,53 +55,26 @@ define(function(require) {
 
         },
 
-        evaluateNavigation: function() {
-            var currentStage = this.model.get('_stage');
-            var itemCount = this.model.get('_itemCount');
-
-            if (currentStage == 0) {
-                this.$('.narrative-control-left').addClass('narrative-hidden');
-
-                if (itemCount > 1) {
-                    this.$('.narrative-control-right').removeClass('narrative-hidden');
-                }
+        calculateWidths: function() {
+            if (Adapt.device.screenSize != 'large') {
+                this.$(".linkedopentextinput-useranswer").css("width", "100%");
+                this.$(".linkedopentextinput-modelanswer").css("width", "100%");
+                this.$(".linkedopentextinput-modelanswer").css("display", "none");
+                this.$(".model").css("visibility", "visible");
             } else {
-                this.$('.narrative-control-left').removeClass('narrative-hidden');
+                if ((this.model.get('_layout') == 'full')) {
+                    this.$(".linkedopentextinput-useranswer").css("width", "48%");
+                    this.$(".linkedopentextinput-modelanswer").css("width", "48%");
+                    this.$(".linkedopentextinput-modelanswer").css("display", "inline-block");
 
-                if (currentStage == itemCount - 1) {
-                    this.$('.narrative-control-right').addClass('narrative-hidden');
-                } else {
-                    this.$('.narrative-control-right').removeClass('narrative-hidden');
+                    this.$(".linkedopentextinput-useranswer").css("display", "inline-block");
+                    this.$(".model").css("visibility", "hidden");
                 }
             }
 
         },
-        calculateWidths: function() {
-            var slideWidth = this.$('.narrative-slide-container').width();
-            var slideCount = this.model.get('_itemCount');
-            var marginRight = this.$('.narrative-slider-graphic').css('margin-right');
-            var extraMargin = marginRight === "" ? 0 : parseInt(marginRight);
-            var fullSlideWidth = (slideWidth + extraMargin) * slideCount;
-            var iconWidth = this.$('.narrative-popup-open').outerWidth();
-
-            this.$('.narrative-slider-graphic').width(slideWidth)
-            this.$('.narrative-strapline-header').width(slideWidth);
-            this.$('.narrative-strapline-title').width(slideWidth);
-            this.$('.narrative-strapline-title-inner').width(slideWidth - iconWidth);
-
-            this.$('.narrative-slider').width(fullSlideWidth);
-            this.$('.narrative-strapline-header-inner').width(fullSlideWidth);
-
-            var stage = this.model.get('_stage');
-            var margin = -(stage * slideWidth);
-
-            this.$('.narrative-slider').css('margin-left', margin);
-            this.$('.narrative-strapline-header-inner').css('margin-left', margin);
-
-            this.model.set('_finalItemLeft', fullSlideWidth - slideWidth);
-        },
         preRender: function() {
-            this.listenTo(Adapt, 'device:changed', this.reRender, this);
+            this.listenTo(Adapt, 'device:changed', this.calculateWidths, this);
             this.listenTo(Adapt, 'device:resize', this.resizeControl, this);
             this.setupLinkedModel();
             this.model.set('_isEnabled', this.model.get('_linkedModel').get('_isSubmitted'));
@@ -111,19 +84,12 @@ define(function(require) {
         resizeControl: function() {
             this.setDeviceSize();
             this.calculateWidths();
-            this.evaluateNavigation();
         },
-        reRender: function() {
-            if (this.model.get('_wasHotgraphic') && Adapt.device.screenSize == 'large') {
-                this.replaceWithHotgraphic();
-            }
-        },
+
         setDeviceSize: function() {
             if (Adapt.device.screenSize === 'large') {
-                this.$el.addClass('desktop').removeClass('mobile');
                 this.model.set('_isDesktop', true);
             } else {
-                this.$el.addClass('mobile').removeClass('desktop');
                 this.model.set('_isDesktop', false)
             }
         },
@@ -145,7 +111,7 @@ define(function(require) {
 
         onModelAnswerShown: function() {
             //display model answer from json
-            if (this.model.get('_layout') === 'right' || this.model.get('_layout') === 'left') {
+            if (this.model.get('_layout') === 'right' || this.model.get('_layout') === 'left' || (Adapt.device.screenSize === 'small')) {
                 this.$(".linkedopentextinput-useranswer").css("display", "none");
                 this.$(".linkedopentextinput-modelanswer").css("display", "inline-block");
                 this.$(".user").css("visibility", "visible");
@@ -153,7 +119,7 @@ define(function(require) {
 
         },
         onUserAnswerShown: function() {
-            if (this.model.get('_layout') === 'right' || this.model.get('_layout') === 'left') {
+            if (this.model.get('_layout') === 'right' || this.model.get('_layout') === 'left' || (Adapt.device.screenSize === 'small')) {
                 this.$(".linkedopentextinput-useranswer").css("display", "inline-block");
                 this.$(".linkedopentextinput-modelanswer").css("display", "none");
                 this.$(".model").css("visibility", "visible");
