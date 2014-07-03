@@ -29,17 +29,21 @@ define(function(require) {
             this.setCompletionStatus();
             this.listenToLinkedModel();
 
+
             // Check if the original component is already submitted
             if (this.model.get('_linkedModel').get('_isSubmitted')) {
                 // Show linked component, display user answer
                 this.$(".linkedopentextinput-useranswer").text(this.model.get('_linkedModel').get('_userAnswer'));
+                console.log("postRender");
             }
 
             if (this.model.get('modelAnswer') == "") {
                 this.$(".linkedopentextinput-modelanswer").addClass("hide-model");
                 this.$(".linkedopentextinput-useranswer").css("width", "100%");
+                this.$(".model").css("visibility", "hidden");
+
             }
-            if ((this.model.get('_layout') == 'right') || (this.model.get('_layout') == 'left')) {
+            if (((this.model.get('_layout') == 'right') || (this.model.get('_layout') == 'left')) && this.model.get('modelAnswer') != "") {
                 this.$(".linkedopentextinput-useranswer").css("width", "100%");
                 this.$(".linkedopentextinput-modelanswer").css("width", "100%");
                 this.$(".linkedopentextinput-modelanswer").css("display", "none");
@@ -56,19 +60,22 @@ define(function(require) {
         },
 
         calculateWidths: function() {
-            if (Adapt.device.screenSize != 'large') {
-                this.$(".linkedopentextinput-useranswer").css("width", "100%");
-                this.$(".linkedopentextinput-modelanswer").css("width", "100%");
-                this.$(".linkedopentextinput-modelanswer").css("display", "none");
-                this.$(".model").css("visibility", "visible");
-            } else {
-                if ((this.model.get('_layout') == 'full')) {
-                    this.$(".linkedopentextinput-useranswer").css("width", "48%");
-                    this.$(".linkedopentextinput-modelanswer").css("width", "48%");
-                    this.$(".linkedopentextinput-modelanswer").css("display", "inline-block");
+            if (this.model.get('modelAnswer') != "") {
+                console.log("calculateWidths");
+                if (Adapt.device.screenSize != 'large') {
+                    this.$(".linkedopentextinput-useranswer").css("width", "100%");
+                    this.$(".linkedopentextinput-modelanswer").css("width", "100%");
+                    this.$(".linkedopentextinput-modelanswer").css("display", "none");
+                    this.$(".model").css("visibility", "visible");
+                } else {
+                    if ((this.model.get('_layout') == 'full')) {
+                        this.$(".linkedopentextinput-useranswer").css("width", "48%");
+                        this.$(".linkedopentextinput-modelanswer").css("width", "48%");
+                        this.$(".linkedopentextinput-modelanswer").css("display", "inline-block");
 
-                    this.$(".linkedopentextinput-useranswer").css("display", "inline-block");
-                    this.$(".model").css("visibility", "hidden");
+                        this.$(".linkedopentextinput-useranswer").css("display", "inline-block");
+                        this.$(".model").css("visibility", "hidden");
+                    }
                 }
             }
 
@@ -84,6 +91,7 @@ define(function(require) {
         resizeControl: function() {
             this.setDeviceSize();
             this.calculateWidths();
+            console.log(Adapt.device.screenSize);
         },
 
         setDeviceSize: function() {
@@ -111,7 +119,7 @@ define(function(require) {
 
         onModelAnswerShown: function() {
             //display model answer from json
-            if (this.model.get('_layout') === 'right' || this.model.get('_layout') === 'left' || (Adapt.device.screenSize === 'small')) {
+            if (this.model.get('_layout') === 'right' || this.model.get('_layout') === 'left' || (Adapt.device.screenSize != 'large') || (this.model.get('modelAnswer') != "")) {
                 this.$(".linkedopentextinput-useranswer").css("display", "none");
                 this.$(".linkedopentextinput-modelanswer").css("display", "inline-block");
                 this.$(".user").css("visibility", "visible");
@@ -119,10 +127,12 @@ define(function(require) {
 
         },
         onUserAnswerShown: function() {
-            if (this.model.get('_layout') === 'right' || this.model.get('_layout') === 'left' || (Adapt.device.screenSize === 'small')) {
+            console.log("onUserAnswerShown");
+            if ((this.model.get('_layout') === 'right' || this.model.get('_layout') === 'left' || Adapt.device.screenSize != 'large') && (this.model.get('modelAnswer') != "")) {
                 this.$(".linkedopentextinput-useranswer").css("display", "inline-block");
                 this.$(".linkedopentextinput-modelanswer").css("display", "none");
                 this.$(".model").css("visibility", "visible");
+                console.log("onUserAnswerShown-if");
             }
 
         },
