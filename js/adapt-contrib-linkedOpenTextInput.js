@@ -7,9 +7,6 @@
  * Petra Nussdorfer <petra.nussdorfer@learnchamp.com>
  */
 
-
-
-
 define(function(require) {
   var QuestionView = require('coreViews/questionView');
   var Adapt = require('coreJS/adapt');
