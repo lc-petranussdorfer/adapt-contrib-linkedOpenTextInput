@@ -7,9 +7,6 @@
  * Petra Nussdorfer <petra.nussdorfer@learnchamp.com>
  */
 
-
-
-
 define(function(require) {
   var QuestionView = require('coreViews/questionView');
   var Adapt = require('coreJS/adapt');
@@ -18,18 +15,27 @@ define(function(require) {
 
   var LinkedOpenTextInput = QuestionView.extend({
     events: {
+<<<<<<< HEAD
 
+=======
+>>>>>>> add58b10fe056185a6f5d48665b3e9fcb2d33e0c
       'click .linkedopentextinput-widget .button.model': 'onModelAnswerClicked',
       'click .linkedopentextinput-widget .button.user': 'onUserAnswerClicked'
     },
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> add58b10fe056185a6f5d48665b3e9fcb2d33e0c
     postRender: function() {
       this.setReadyStatus();
       this.setCompletionStatus();
       this.listenToLinkedModel();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> add58b10fe056185a6f5d48665b3e9fcb2d33e0c
       // Check if the original component is already submitted
       if (this.model.get('_linkedModel').get('_isSubmitted')) {
         // Show linked component, display user answer
@@ -50,6 +56,7 @@ define(function(require) {
         this.$('.model').css('visibility', 'visible');
       } else {
         this.$('.model').css('visibility', 'hidden');
+<<<<<<< HEAD
 
       }
 
@@ -57,6 +64,11 @@ define(function(require) {
       QuestionView.prototype.postRender.apply(this);
 
 
+=======
+      }
+
+      QuestionView.prototype.postRender.apply(this);
+>>>>>>> add58b10fe056185a6f5d48665b3e9fcb2d33e0c
     },
 
     calculateWidths: function() {
@@ -72,13 +84,19 @@ define(function(require) {
             this.$('.linkedopentextinput-useranswer').css('width', '48%');
             this.$('.linkedopentextinput-modelanswer').css('width', '48%');
             this.$('.linkedopentextinput-modelanswer').css('display', 'inline-block');
+<<<<<<< HEAD
 
+=======
+>>>>>>> add58b10fe056185a6f5d48665b3e9fcb2d33e0c
             this.$('.linkedopentextinput-useranswer').css('display', 'inline-block');
             this.$('.model').css('visibility', 'hidden');
           }
         }
       }
+<<<<<<< HEAD
 
+=======
+>>>>>>> add58b10fe056185a6f5d48665b3e9fcb2d33e0c
     },
     preRender: function() {
       this.listenTo(Adapt, 'device:changed', this.calculateWidths, this);
@@ -93,7 +111,10 @@ define(function(require) {
       this.calculateWidths();
       console.log(Adapt.device.screenSize);
     },
+<<<<<<< HEAD
 
+=======
+>>>>>>> add58b10fe056185a6f5d48665b3e9fcb2d33e0c
     setDeviceSize: function() {
       if (Adapt.device.screenSize === 'large') {
         this.model.set('_isDesktop', true);
@@ -101,7 +122,10 @@ define(function(require) {
         this.model.set('_isDesktop', false)
       }
     },
+<<<<<<< HEAD
 
+=======
+>>>>>>> add58b10fe056185a6f5d48665b3e9fcb2d33e0c
     setupLinkedModel: function() {
       var linkedModel = Adapt.components.findWhere({
         _id: this.model.get('_linkedToId')
@@ -116,7 +140,10 @@ define(function(require) {
       this.$('.linkedopentextinput-useranswer').text(this.model.get('_linkedModel').get('_userAnswer'));
       this.$('.linkedopentextinput-inner').addClass('display');
     },
+<<<<<<< HEAD
 
+=======
+>>>>>>> add58b10fe056185a6f5d48665b3e9fcb2d33e0c
     onModelAnswerShown: function() {
       //display model answer from json
       if (this.model.get('_layout') === 'right' || this.model.get('_layout') === 'left' || (Adapt.device.screenSize != 'large') || (this.model.get('modelAnswer') != '')) {
@@ -124,7 +151,10 @@ define(function(require) {
         this.$('.linkedopentextinput-modelanswer').css('display', 'inline-block');
         this.$('.user').css('visibility', 'visible');
       }
+<<<<<<< HEAD
 
+=======
+>>>>>>> add58b10fe056185a6f5d48665b3e9fcb2d33e0c
     },
     onUserAnswerShown: function() {
       console.log('onUserAnswerShown');
@@ -134,6 +164,7 @@ define(function(require) {
         this.$('.model').css('visibility', 'visible');
         console.log('onUserAnswerShown-if');
       }
+<<<<<<< HEAD
 
     },
 
@@ -151,6 +182,12 @@ define(function(require) {
     markQuestion: function() {}
   });
 
+=======
+    },
+    onComplete: function(parameters) {},
+    markQuestion: function() {}
+  });
+>>>>>>> add58b10fe056185a6f5d48665b3e9fcb2d33e0c
   Adapt.register('linkedopentextinput', LinkedOpenTextInput);
 
 });
