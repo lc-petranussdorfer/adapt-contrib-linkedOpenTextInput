@@ -148,6 +148,6 @@ define(function(require) {
     markQuestion: function() {}
   });
 
-  Adapt.register('linkedopentextinput', LinkedOpenTextInput);
+  Adapt.register('linkedOpenTextInput', LinkedOpenTextInput);
 
 });
