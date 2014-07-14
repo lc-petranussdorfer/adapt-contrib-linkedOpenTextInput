@@ -1,5 +1,5 @@
 /*
- * adapt-contrib-linkedopenTextInput
+ * adapt-contrib-linkedOpenTextInput
  * License - http://github.com/adaptlearning/adapt_framework/LICENSE
  * Maintainers
  * Thomas Eitler <thomas.eitler@learnchamp.com>
@@ -8,146 +8,55 @@
  */
 
 define(function(require) {
-  var QuestionView = require('coreViews/questionView');
-  var Adapt = require('coreJS/adapt');
-  var OpenTextInput = require('components/adapt-contrib-openTextInput/js/adapt-contrib-openTextInput');
+    var ComponentView = require('coreViews/componentView');
+    var Adapt = require('coreJS/adapt');
+    var OpenTextInput = require('components/adapt-contrib-openTextInput/js/adapt-contrib-openTextInput');
 
-
-  var LinkedOpenTextInput = QuestionView.extend({
-    events: {
-
-      'click .linkedopentextinput-widget .button.model': 'onModelAnswerClicked',
-      'click .linkedopentextinput-widget .button.user': 'onUserAnswerClicked'
-    },
-
-
-    postRender: function() {
-      this.setReadyStatus();
-      this.setCompletionStatus();
-      this.listenToLinkedModel();
-
-
-      // Check if the original component is already submitted
-      if (this.model.get('_linkedModel').get('_isSubmitted')) {
-        // Show linked component, display user answer
-        this.$('.linkedopentextinput-useranswer').text(this.model.get('_linkedModel').get('_userAnswer'));
-        console.log('postRender');
-      }
-
-      if (this.model.get('modelAnswer') == '') {
-        this.$('.linkedopentextinput-modelanswer').addClass('hide-model');
-        this.$('.linkedopentextinput-useranswer').css('width', '100%');
-        this.$('.model').css('visibility', 'hidden');
-
-      }
-      if (((this.model.get('_layout') == 'right') || (this.model.get('_layout') == 'left')) && this.model.get('modelAnswer') != '') {
-        this.$('.linkedopentextinput-useranswer').css('width', '100%');
-        this.$('.linkedopentextinput-modelanswer').css('width', '100%');
-        this.$('.linkedopentextinput-modelanswer').css('display', 'none');
-        this.$('.model').css('visibility', 'visible');
-      } else {
-        this.$('.model').css('visibility', 'hidden');
-
-      }
-
-
-      QuestionView.prototype.postRender.apply(this);
-
-
-    },
-
-    calculateWidths: function() {
-      if (this.model.get('modelAnswer') != '') {
-        console.log('calculateWidths');
-        if (Adapt.device.screenSize != 'large') {
-          this.$('.linkedopentextinput-useranswer').css('width', '100%');
-          this.$('.linkedopentextinput-modelanswer').css('width', '100%');
-          this.$('.linkedopentextinput-modelanswer').css('display', 'none');
-          this.$('.model').css('visibility', 'visible');
-        } else {
-          if ((this.model.get('_layout') == 'full')) {
-            this.$('.linkedopentextinput-useranswer').css('width', '48%');
-            this.$('.linkedopentextinput-modelanswer').css('width', '48%');
-            this.$('.linkedopentextinput-modelanswer').css('display', 'inline-block');
-
-            this.$('.linkedopentextinput-useranswer').css('display', 'inline-block');
-            this.$('.model').css('visibility', 'hidden');
-          }
-        }
-      }
-
-    },
-    preRender: function() {
-      this.listenTo(Adapt, 'device:changed', this.calculateWidths, this);
-      this.listenTo(Adapt, 'device:resize', this.resizeControl, this);
-      this.setupLinkedModel();
-      this.model.set('_isEnabled', this.model.get('_linkedModel').get('_isSubmitted'));
-      console.log('Prerender: ' + this.model.get('_linkedModel').get('_userAnswer'));
-      this.setDeviceSize();
-    },
-    resizeControl: function() {
-      this.setDeviceSize();
-      this.calculateWidths();
-      console.log(Adapt.device.screenSize);
-    },
-
-    setDeviceSize: function() {
-      if (Adapt.device.screenSize === 'large') {
-        this.model.set('_isDesktop', true);
-      } else {
-        this.model.set('_isDesktop', false)
-      }
-    },
-
-    setupLinkedModel: function() {
-      var linkedModel = Adapt.components.findWhere({
-        _id: this.model.get('_linkedToId')
-      });
-      this.model.set('_linkedModel', linkedModel);
-      console.log('setupLinkedModel: ' + this.model.get('_linkedModel'));
-    },
-    listenToLinkedModel: function() {
-      this.listenTo(this.model.get('_linkedModel'), 'change:_userAnswer', this.onLinkedUserAnswerChanged);
-    },
-    onLinkedUserAnswerChanged: function(linkedModel) {
-      this.$('.linkedopentextinput-useranswer').text(this.model.get('_linkedModel').get('_userAnswer'));
-      this.$('.linkedopentextinput-inner').addClass('display');
-    },
-
-    onModelAnswerShown: function() {
-      //display model answer from json
-      if (this.model.get('_layout') === 'right' || this.model.get('_layout') === 'left' || (Adapt.device.screenSize != 'large') || (this.model.get('modelAnswer') != '')) {
-        this.$('.linkedopentextinput-useranswer').css('display', 'none');
-        this.$('.linkedopentextinput-modelanswer').css('display', 'inline-block');
-        this.$('.user').css('visibility', 'visible');
-      }
-
-    },
-    onUserAnswerShown: function() {
-      console.log('onUserAnswerShown');
-      if ((this.model.get('_layout') === 'right' || this.model.get('_layout') === 'left' || Adapt.device.screenSize != 'large') && (this.model.get('modelAnswer') != '')) {
-        this.$('.linkedopentextinput-useranswer').css('display', 'inline-block');
-        this.$('.linkedopentextinput-modelanswer').css('display', 'none');
-        this.$('.model').css('visibility', 'visible');
-        console.log('onUserAnswerShown-if');
-      }
-
-    },
-
-    onComplete: function(parameters) {
-      /* this.model.set({
-                _isComplete: true,
-                _isEnabled: false,
+    var LinkedOpenTextInput = ComponentView.extend({
+        events: {
+            'click .linkedOpenTextInput-action-button': 'onActionClicked'
+        },
+        preRender: function() {
+            this.setupLinkedModel();
+            this.listenTo(this.model.get('_linkedModel'), 'change:_isComplete', this.showUserAnswer);
+            console.log('9');
+            console.log(this.model.get('_linkedModel').get('_isComplete'));
+        },
+        postRender: function() {
+            this.setReadyStatus();
+            this.$linkedTextbox = this.$('.linkedOpenTextInput-item-textbox');
+            if (this.model.get('_linkedModel').get('_isComplete')) {
+                this.showUserAnswer();
+            }
+        },
+        setupLinkedModel: function() {
+            var linkedModel = Adapt.components.findWhere({
+                _id: this.model.get('_linkedToId')
             });
-            this.$('.component-widget').addClass('disabled');
-            // this.showMarking();
-            this.showUserAnswer();
-            Adapt.trigger('questionView:complete', this);*/
-    },
-
-    markQuestion: function() {}
-  });
-
-  Adapt.register('linkedOpenTextInput', LinkedOpenTextInput);
-
+            this.model.set('_linkedModel', linkedModel);
+        },
+        showUserAnswer: function() {
+            this.$('.linkedOpenTextInput-action-button').prop('disabled', false);
+            this.model.set('_buttonState', 'user');
+            this.updateActionButton(this.model.get('_buttons').showModelAnswer);
+            this.$linkedTextbox.val(this.model.get('_linkedModel').get('_userAnswer'));
+        }, 
+        showModelAnswer: function() {
+            this.model.set('_buttonState', 'model');
+            this.updateActionButton(this.model.get('_buttons').showUserAnswer);
+            this.$linkedTextbox.val(this.model.get('modelAnswer'));
+        },
+        updateActionButton: function(buttonText) {
+            this.$('.linkedOpenTextInput-action-button')
+                .html(buttonText);
+        },
+        onActionClicked: function(event) {
+            if (this.model.get('_buttonState') == 'model') {
+                this.showUserAnswer();
+            } else {
+                this.showModelAnswer();
+            }
+        }
+    });
+    Adapt.register('linkedOpenTextInput', LinkedOpenTextInput);
 });
