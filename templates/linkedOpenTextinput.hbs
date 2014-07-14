@@ -1,28 +1,15 @@
 {{! Maintainers - LearnChamp}}
-<div class="component-inner linkedopentextinput-inner">
-    {{#if title}}
-    <div class="component-title linkedopentextinput-title">
-        <h4 class="component-title-inner linkedopentextinput-title-inner">
-            {{{title}}}
-        </h4>
-    </div>
-    {{/if}}
-    {{#if body}}
-    <div class="component-body linkedopentextinput-body">
-        <div class="component-body-inner linkedopentextinput-body-inner">
-            {{{body}}}
-        </div>
-    </div>
-    {{/if}}
-    <div class="component-widget linkedopentextinput-widget">
-    <h4>{{{headlineUserAnswer}}}</h4>
-    <h4>{{{headlineModelAnswer}}}</h4>
-    <div class="linked-answer-container">
-         <span class="linkedopentextinput-useranswer"></span>
-         <span class="linkedopentextinput-modelanswer">{{{modelAnswer}}}</span>
+<div class="component-inner linkedOpenTextInput-inner">
+    {{> component this}}
+    <div class="component-widget linkedOpenTextInput-widget">
+    <div class="linkedOpenTextInput-answer-container">
+        <textarea class="linkedOpenTextInput-item-textbox"
+           placeholder="{{placeholder}}" disabled="true"></textarea>
     </div>
         <div class="buttons">
-             {{> buttons this}}
+            <button class="linkedOpenTextInput-action-button" {{#unless _userAnswer}}disabled="true"{{/unless}}>
+                {{_buttons.showModelAnswer}}
+            </button>
         </div>
     </div>
 </div>

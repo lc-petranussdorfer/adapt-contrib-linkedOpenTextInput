@@ -1,95 +1,26 @@
- /* Opera/IE 8+ */
- .linkedopentextinput-component {
- h4{
- display: inline-block;
- width: 49%;
- }
-     .linkedopentextinput-item {
-         background-color: @primary-color;
-         padding: @item-padding;
-         position:relative;
-         margin-bottom:2px;
-     }
-     label {
-         background-color: transparent;
-         line-height: 32px;
-         padding: 0px;
-         float: left;
-         text-align: center;
-         cursor: default;
-         color: @inverted-foreground-color;
-     }
-     .linkedopentextinput-item-prefix {
-         width:20%;
-     }
-     .linkedopentextinput-item-suffix {
-         width:10%;
-     }
-     .button {
-         outline: none;
-         text-decoration: none;
-         padding: @button-padding;
-         color: @button-text-color;
-         background-color: @button-color;
-         display: none;
-         margin-top:8px;
-     }
-     .linkedopentextinput-widget {
-         &.model {
-             .linkedopentextinput-select-icon {
-                 display: none;
-             }
-         }
-     }
-     .linkedopentextinput-item-state {
-         background: none;
-         position: absolute;
-         right: (@icon-size/2);
-         width: @icon-size;
-         height: @icon-size;
-         top: 50%;
-         margin-top: -(@icon-size/2);
-         z-index: 0;
-     }
- }
- .linked-answer-container {
-     display: block;
-     width: 100%;
- }
- .linkedopentextinput-inner {
-     display: none;
-     &.display {
-         display: block;
-     }
- }
- .linkedopentextinput-useranswer, .linkedopentextinput-modelanswer {
-     width: 48%;
-     min-height: 50px;
-     resize: none;
-     border-color: rgb(169, 169, 169);
-     -webkit-appearance: textarea;
-     background-color: rgb(235, 235, 228);
-     border: 1px solid;
-     border-image-source: initial;
-     border-image-slice: initial;
-     border-image-width: initial;
-     border-image-outset: initial;
-     border-image-repeat: initial;
-     -webkit-rtl-ordering: logical;
-     -webkit-user-select: text;
-     flex-direction: column;
-     resize: auto;
-     cursor: auto;
-     padding: 5px;
-     white-space: pre-wrap;
-     word-wrap: break-word;
-     float: left;
- }
- .no-touch {
-     .button {
-         &:hover {
-             color: @button-text-hover-color;
-             background-color: @button-hover-color;
-         }
-     }
- }
+/* Opera/IE 8+ */
+
+.linkedOpenTextInput-component {
+    .linkedOpenTextInput-answer-container {
+        border: 1px solid #ccc;
+    }
+    .linkedOpenTextInput-item-textbox {
+        width: 98%;
+        padding: 1%;
+        margin: 0;
+        border: none;
+        resize: none;
+        display: block;
+    }
+    .linkedOpenTextInput-action-button {
+        width: 100%;
+    }
+    .buttons {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        @media all and (max-width: (@device-width-medium - 1px)) {
+            width: 100%;
+        }
+    }
+}
