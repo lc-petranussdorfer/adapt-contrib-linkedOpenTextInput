@@ -19,8 +19,6 @@ define(function(require) {
         preRender: function() {
             this.setupLinkedModel();
             this.listenTo(this.model.get('_linkedModel'), 'change:_isComplete', this.showUserAnswer);
-            console.log('9');
-            console.log(this.model.get('_linkedModel').get('_isComplete'));
         },
         postRender: function() {
             this.setReadyStatus();
