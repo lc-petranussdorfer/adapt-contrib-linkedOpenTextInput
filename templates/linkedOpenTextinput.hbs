@@ -6,10 +6,12 @@
         <textarea class="linkedOpenTextInput-item-textbox"
            placeholder="{{placeholder}}" disabled="true"></textarea>
     </div>
+    {{#if modelAnswer}}
         <div class="buttons">
-            <button class="linkedOpenTextInput-action-button" {{#unless _userAnswer}}disabled="true"{{/unless}}>
+            <button class="linkedOpenTextInput-action-button" disabled="true">
                 {{_buttons.showModelAnswer}}
             </button>
         </div>
+    {{/if}}
     </div>
 </div>

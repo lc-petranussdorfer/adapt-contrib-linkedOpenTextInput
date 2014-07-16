@@ -11,9 +11,7 @@
     "body": "Description of the problem.",
     "placeholder": "Enter your answer here",
     "modelAnswer": "Answer to compare to Linked.",
-    "savedMessage": "Your text has been saved",
     "_buttons": {
-        "submit": "Submit",
         "showModelAnswer": "Show correct answer",
         "showUserAnswer": "Hide correct answer"
     }
