@@ -9,10 +9,10 @@
     "title": "Title of the Linked Component",
     "displayTitle": "Linked Open TextInput Component",
     "body": "Description of the problem.",
-    "placeholder": "Enter your answer here",
-    "modelAnswer": "Answer to compare to Linked.",
+    "placeholder": "Your answer will be displayed as soon as you submit the OpenTextInput Component",
+    "modelAnswer": "",
     "_buttons": {
-        "showModelAnswer": "Show correct answer",
-        "showUserAnswer": "Hide correct answer"
+        "showModelAnswer": "Show model answer",
+        "showUserAnswer": "Show user answer"
     }
 },
