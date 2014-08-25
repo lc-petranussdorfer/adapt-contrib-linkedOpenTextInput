@@ -1,13 +1,18 @@
 {
-    "_id": "c-9001",
-    "_parentId": "b-650",
+    "_id": "c-405",
+    "_parentId": "b-33",
     "_type": "component",
-    "_component": "linkedopentextinput",
+    "_component": "linkedOpenTextInput",
     "_classes": "",
     "_layout": "full",
-    "_linkedToId": "c-9000",
-    "title": "Linked Open Textinput Component",
-    "displayTitle":"Linked Open Textinput Component",
-    "body": "Description of the problem.",    
-    "modelAnswer": "Linked Answer to compare to."
+    "_linkedToId": "c-400",
+    "title": "Title of the Linked Component",
+    "displayTitle": "Linked Open TextInput Component",
+    "body": "Description of the problem.",
+    "placeholder": "Your answer will be displayed as soon as you submit the OpenTextInput Component",
+    "modelAnswer": "",
+    "_buttons": {
+        "showModelAnswer": "Show model answer",
+        "showUserAnswer": "Show user answer"
+    }
 },

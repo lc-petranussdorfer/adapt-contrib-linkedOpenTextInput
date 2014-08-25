@@ -13,7 +13,7 @@
   "author": "AdaptLearning",
   "license": "GPL v3",
   "bugs": {
-    "url": "https://github.com/lc-petranussdorfer/adapt-contrib-linkedOpenTextInput"
+    "url": "https://github.com/adaptlearning/adapt-contrib-textInput/issues"
   },
   "devDependencies": {
     "karma": "~0.10",
